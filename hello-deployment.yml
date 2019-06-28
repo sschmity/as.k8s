@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deploy
+  labels:
+    app: hello-world
+spec:
+  replicas: 2
+  minReadySeconds: 10 #wait for 10 seconds before marking it at being ready
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 #never more than 1 extra
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+        env: prod
+    spec:
+      containers:
+        - name: hello-pod
+          image: nigelpoulton/pluralsight-docker-ci:latest
+          command: ["printenv"]
+          args: ["$(HELLO_DB_NAME)", "$(HELLO_DB_PORT)"]
+          env:
+            - name: JAVA_HOME
+              value: "/opt/tools/java/bin"
+            - name: HELLO_DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: hello-configmap
+                  key: database.port
+            - name: HELLO_DB_NAME
+              valueFrom:
+                  configMapKeyRef:
+                    name: hello-configmap
+                    key: database.name
+            - name: HELLO_DB_HOST
+              valueFrom:
+                  configMapKeyRef:
+                    name: hello-configmap
+                    key: database.host
+            - name: HELLO_DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: hello-configmap
+                  key: database.user
+            - name: HELLO_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hello-secret
+                  key: password.txt
+            - name: HELLO_APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hello-test-secret
+                  key: password
+          ports:
+            - containerPort: 8080

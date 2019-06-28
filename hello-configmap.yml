@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-configmap
+  labels:
+    app: hello-world
+data:
+  port: "8088"
+  session_key: "654321"
+  admin_user: "EI050_SUPP"
+  database.host: "dsweb.world"
+  database.port: "3306"
+  database.name: "DSWEB"
+  database.user: "DS_PROD"
