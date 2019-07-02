@@ -7,8 +7,8 @@ metadata:
 data:
   port: "8088"
   session_key: "654321"
-  admin_user: "EI050_SUPP"
-  database.host: "dsweb.world"
+  admin_user: "sschmity"
+  database.host: "stuff.db  "
   database.port: "3306"
-  database.name: "DSWEB"
-  database.user: "DS_PROD"
+  database.name: "k8s"
+  database.user: "k8s.user"
