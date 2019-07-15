@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-world
 spec:
-  replicas: 2
+  replicas: 3
   minReadySeconds: 10 #wait for 10 seconds before marking it at being ready
   strategy:
     type: RollingUpdate
@@ -24,8 +24,8 @@ spec:
       containers:
         - name: hello-pod
           image: nigelpoulton/pluralsight-docker-ci:latest
-          command: ["printenv"]
-          args: ["$(HELLO_DB_NAME)", "$(HELLO_DB_PORT)"]
+ #         command: ["printenv"]
+ #         args: ["$(HELLO_DB_NAME)", "$(HELLO_DB_PORT)"]
           env:
             - name: JAVA_HOME
               value: "/opt/tools/java/bin"

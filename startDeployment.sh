@@ -1,4 +1,7 @@
 #!/bin/bash
+
+#Add Ingress for reverse/proxy -todo
+#minikube addons enable ingress
 #start with
 #sudo minikube start --vm-driver=none
 
@@ -80,3 +83,6 @@ kubectl create -f hello-deployment.yml  --namespace ${k8s_app_namespace} #give y
 
   # Create a new configmap named my-config from an env file
   #kubectl create configmap my-config --from-env-file=path/to/bar.env
+
+#start related Service
+  . ./startService.sh

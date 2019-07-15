@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource1
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /codelist
+            backend:
+              serviceName: hello-svc
+              servicePort: 8080
+          - path: /codelistlux
+            backend:
+              serviceName: hello-svc
+              servicePort: 8080
